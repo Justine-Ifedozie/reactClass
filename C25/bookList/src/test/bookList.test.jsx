@@ -1,16 +1,23 @@
-import {test, expect} from "vitest";
-import {render, screen} from "@testing-library/react"
+import {test, expect, beforeEach, afterEach} from "vitest";
+import {cleanup, fireEvent, render, screen} from "@testing-library/react"
 import BookList from "../components/BookList";
 
+beforeEach(() => {
+    render(<BookList/>)
+})
 
-
-// test ("add two numbers", () => {
-//     let sum = 2+1;
-//     expect(sum).toBe(3);
-// })
+afterEach(() => {
+    cleanup()
+})
 
 test("that the booklist rendered on the screen", () =>{
-    render(<BookList/>)
-    const listItem = screen.getAllByRole("listitem")
-    expect(listItem).toBeTruthy()
+    const listItem = screen.getAllByRole("listitem");
+    expect(listItem.length).toBe(4);
+})
+
+test("that I can delete a book", () => {
+    const deleteBtn = screen.getAllByText(/delete/i)
+    fireEvent.click(deleteBtn[0]);
+    const listItem = screen.getAllByRole("listitem");
+    expect(listItem.length).toBe(3);
 })
