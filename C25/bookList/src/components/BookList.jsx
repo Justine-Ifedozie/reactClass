@@ -29,8 +29,8 @@ const BookList = () => {
 	    	<h2 className={styles.title}>Books to Read</h2>
             <ul>
                 {
-                    books.map((book)=>(
-                        <li>
+                    books.map((book, index)=>(
+                        <li key={index}>
                             <span className={styles.name}>{book}</span>
                             <span className={styles.delete}>delete</span>
                         </li>
